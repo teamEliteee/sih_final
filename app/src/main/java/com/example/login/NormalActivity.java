@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +25,7 @@ public class NormalActivity extends AppCompatActivity {
     private DatabaseReference reference;
     private String userId;
     private TextView TextfullName,TextEmail,TextAge;
+    private FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,28 +45,36 @@ public class NormalActivity extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference("Users");
         userId = user.getUid();
 
+        fab = findViewById(R.id.fab); // ProfileActivity Button
 
-
-        reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+        fab.setOnClickListener(new View.OnClickListener() { // If we click the Floating point button, we'll redirect to ProfileActivity
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userProfile = snapshot.getValue(User.class);
-                if(userProfile != null){
-//                    String fullName = userProfile.;
-                    String email = userProfile.email;
-                    String age = userProfile.age;
-
-                    TextEmail.setText(email);
-                    TextAge.setText(age);
-//                    TextfullName.setText(fullName);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(NormalActivity.this, "Something wrong happened!!!", Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                Intent intent = new Intent(NormalActivity.this, ProfileActivity.class);
+                startActivity(intent);
             }
         });
+
+
+
+//        reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                User userProfile = snapshot.getValue(User.class);
+//                if(userProfile != null){
+//                    String email = userProfile.email;
+//                    String age = userProfile.age;
+//
+//                    TextEmail.setText(email);
+//                    TextAge.setText(age);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Toast.makeText(NormalActivity.this, "Something wrong happened!!!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 }

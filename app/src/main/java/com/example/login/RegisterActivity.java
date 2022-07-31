@@ -97,72 +97,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
+
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {  // if user is created, task is successful.
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if (task.isSuccessful()) {
-//                            com.example.login.User user = new com.example.login.User(fullName, age, email);
-//
-//                            FirebaseDatabase.getInstance().getReference("Users")
-//                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-//                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                        @Override
-//                                        public void onComplete(@NonNull Task<Void> task) {
-//                                            if (task.isSuccessful()) {
-//                                                Toast.makeText(RegisterActivity.this, "User has been registered successfully!!!", Toast.LENGTH_SHORT).show();
-//                                            } else {
-//                                                Toast.makeText(RegisterActivity.this, "Failed to Register! Try Again", Toast.LENGTH_SHORT).show();
-//                                            }
-//                                        }
-//                                    });
+                        if (task.isSuccessful()) { // we'll toast a message that user is registered successfully.
                             Toast.makeText(RegisterActivity.this, "User Registered Successfully!!!", Toast.LENGTH_SHORT).show();
                         } else {
+                            // anything wrong happens, we'll toast a message that user is failed to register.
                             Toast.makeText(RegisterActivity.this, "Failed to Register!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
-
-
-//    private void initiateotp ()
-//    {
-//        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-//                phonenumber,        // Phone number to verify
-//                60,                 // Timeout duration
-//                TimeUnit.SECONDS,   // Unit of timeout
-//                this,               // Activity (for callback binding)
-//                new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-//                    @Override
-//                    public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-//                        otpid = s;
-//                    }
-//
-//                    @Override
-//                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-//                        signInWithPhoneAuthCredential(phoneAuthCredential);
-//                    }
-//
-//                    @Override
-//                    public void onVerificationFailed(FirebaseException e) {
-//                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-//                    }
-//                });        // OnVerificationStateChangedCallbacks
-//
-//    }
-//
-//    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-//        mAuth.signInWithCredential(credential)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            Toast.makeText(RegisterActivity.this, "Phone number Verified!!!", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            Toast.makeText(getApplicationContext(), "Signin Code Error", Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//                });
-
 }
